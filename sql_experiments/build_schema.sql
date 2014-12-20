@@ -101,7 +101,7 @@ VALUES ("Mark","Mark enjoys fictional walks on the beach",2,3,'2014-03-21','M','
 INSERT INTO employee (name,bio,department,company,hire_date,gender,personality_type,ie_score,sn_score,tf_score,jp_score)
 VALUES ("Caleb","Caleb doesn't work at WC yet",2,3,'2014-12-31','M','INTJ','33','22','80','22');
 INSERT INTO employee (name,bio,department,company,hire_date,gender,personality_type,ie_score,sn_score,tf_score,jp_score)
-VALUES ("Jane","I made Jane up",3,3,'2014-5-02','F','ISFP','30','99','2','14');
+VALUES ("Jane","I made Jane up",3,3,'2014-05-02','F','ISFP','30','99','2','14');
 INSERT INTO employee (name,bio,department,company,hire_date,gender,personality_type,ie_score,sn_score,tf_score,jp_score)
 VALUES ("Samoa","Samoa is a dog.  She probably will not be a good employee, but is happy to be included",1,3,null,'F','ESFJ','100','50','100','50');
 INSERT INTO employee (name,bio,department,company,hire_date,gender,personality_type,ie_score,sn_score,tf_score,jp_score)
