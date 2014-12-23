@@ -57,7 +57,23 @@ LIMIT 2;
 
 -- list personality types with letters
 .print "List Personality Types with Letters"
-SELECT personality_type.signature
+SELECT personality_type.signature as "Personality Type", letterie.full_name as "Introvert/Extrovert", lettersn.full_name as "Sensing/Intuition", lettertf.full_name as "Thinking/Feeling", letterjp.full_name as "Judging/Perceiving"
 FROM personality_type
+INNER JOIN letter as letterie
+ON personality_type.ie = letterie.letter
+INNER JOIN letter as lettersn
+ON personality_type.sn = lettersn.letter
+INNER JOIN letter as lettertf
+ON personality_type.tf = lettertf.letter
+INNER JOIN letter as letterjp
+ON personality_type.jp = letterjp.letter; 
+
+-- Select all Male Employees and show their name and whether they're an introvert or extrovert, and the degree of that.
+.print "Select all Male Employees and show their name and whether they're an introvert or extrovert, and the degree of that."
+SELECT employee.name as "name", letter.full_name as "Introvert/Extrovert", employee.ie_score as "IE Degree", letter.description as "Description"
+FROM employee
+INNER JOIN personality_type
+ON employee.personality_type = personality_type.signature
 INNER JOIN letter
-ON personality_type.ie = letter.letter;
+ON letter.letter = personality_type.ie
+WHERE employee.gender = "M";

@@ -3,8 +3,11 @@
 .headers on
 .echo on
 
-.print "List Personality Types with Letters"
-SELECT personality_type.*, letter.full_name
-FROM personality_type
+-- Select all Male Employees and show their name and whether they're an introvert or extrovert, and the degree of that.
+SELECT employee.name as "name", letter.full_name as "Introvert/Extrovert", employee.ie_score as "IE Degree", letter.description as "Description"
+FROM employee
+INNER JOIN personality_type
+ON employee.personality_type = personality_type.signature
 INNER JOIN letter
-ON personality_type.ie = letter.letter; 
+ON letter.letter = personality_type.ie
+WHERE employee.gender = "M";
