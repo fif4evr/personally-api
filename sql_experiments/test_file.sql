@@ -1,13 +1,13 @@
 -- I'm just using this file to run my queries that aren't currently working
 .mode column
 .headers on
-.echo on
+.echo off
 
--- Select all Male Employees and show their name and whether they're an introvert or extrovert, and the degree of that.
-SELECT employee.name as "name", letter.full_name as "Introvert/Extrovert", employee.ie_score as "IE Degree", letter.description as "Description"
+-- List the most extreme Extrovert (you can assume somebody is an extrovert)  
+.print " "
+.print "List the most extreme Extrovert (you can assume somebody is an extrovert)"
+SELECT employee.name as "Employee Name", MAX(employee.ie_score) as "Maximum Extrovert Score"
 FROM employee
 INNER JOIN personality_type
 ON employee.personality_type = personality_type.signature
-INNER JOIN letter
-ON letter.letter = personality_type.ie
-WHERE employee.gender = "M";
+WHERE personality_type.ie = "E";
