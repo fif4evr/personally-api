@@ -3,11 +3,25 @@
 .headers on
 .echo off
 
--- List the most extreme Extrovert (you can assume somebody is an extrovert)  
+-- select engineers from WC
 .print " "
-.print "List the most extreme Extrovert (you can assume somebody is an extrovert)"
-SELECT employee.name as "Employee Name", MAX(employee.ie_score) as "Maximum Extrovert Score"
+.print "Select WC engineers"
+SELECT employee.name, employee.personality_type, department.name
 FROM employee
+INNER JOIN department
+ON employee.department = department.id
+WHERE department.name = "Engineering";
+
+-- Select feeling engineers  
+.print " "
+.print "Select feeling engineers"
+SELECT employee.name, employee.personality_type, department.name
+FROM employee
+INNER JOIN department
+ON employee.department = department.id
 INNER JOIN personality_type
 ON employee.personality_type = personality_type.signature
-WHERE personality_type.ie = "E";
+INNER JOIN letter
+ON personality_type.signature = letter.letter
+WHERE department.name = "Engineering"
+AND letter.full_name = "Feeling";
