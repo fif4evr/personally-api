@@ -1,6 +1,4 @@
-from sqlalchemy.ext.declarative import declarative_base
-Base = declarative_base()
-
+from base import Base
 from sqlalchemy import Column, Integer, String
 class Letter(Base):
     __tablename__ = 'letter'

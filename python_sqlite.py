@@ -12,9 +12,11 @@
 
 
 # conn.close()
+from models.personality_type import Personality_Type
 from models.employee import Employee
+from models.company import Company
 from sqlalchemy import create_engine
-engine = create_engine('sqlite:///test.db',echo=True)
+engine = create_engine('sqlite:///sql_experiments/test.db',echo=True)
 
 from sqlalchemy.orm import sessionmaker
 Session = sessionmaker(bind=engine)
@@ -23,3 +25,5 @@ session = Session()
 x = session.query(Employee).filter(Employee.personality_type=='ESTJ').all()
 
 print x
+
+print map(lambda y:y.personality, x)
