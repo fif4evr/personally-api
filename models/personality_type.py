@@ -1,4 +1,4 @@
-from base import Base
+from database import Base
 from sqlalchemy import Column, String
 class Personality_Type(Base):
     __tablename__ = 'personality_type'

@@ -1,9 +1,9 @@
-from base import Base
+from database import Base
 from sqlalchemy import Column, Integer, String
 class Letter(Base):
     __tablename__ = 'letter'
 
-    letter = Column(String)
+    letter = Column(String, primary_key = True)
     description = Column(String)
     full_name = Column(String)
 

@@ -1,8 +1,6 @@
-from base import Base
+from database import Base
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
-from models.company import Company
-from models.department import Department
 
 class Employee(Base):
     __tablename__ = 'employee'
