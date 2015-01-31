@@ -11,5 +11,11 @@ class Personality_Type(Base):
     jp = Column(String)
     description = Column(String)
 
+    def to_dict(self):
+        return{
+        "signature": self.signature,
+        "description": self.description 
+        }
+
     def __repr__(self):
         return "<Personality_Type(signature='%s', description='%s')>" % (self.signature, self.description)
