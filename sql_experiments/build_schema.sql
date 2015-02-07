@@ -14,7 +14,9 @@ CREATE TABLE company(
 
 CREATE TABLE department(
 	id integer primary key,
-	name text not null
+	name text not null,
+    company integer,
+    FOREIGN KEY (company) REFERENCES company(id)
 );
 
 CREATE TABLE employee(
@@ -54,9 +56,15 @@ CREATE TABLE letter(
     full_name text
 );
 
-INSERT INTO department (name) VALUES ("Sales");
-INSERT INTO department (name) VALUES ("Engineering");
-INSERT INTO department (name) VALUES ("Marketing");
+INSERT INTO department (name,company) VALUES ("Sales",1);
+INSERT INTO department (name,company) VALUES ("Engineering",1);
+INSERT INTO department (name,company) VALUES ("Marketing",1);
+INSERT INTO department (name,company) VALUES ("Sales",2);
+INSERT INTO department (name,company) VALUES ("Engineering",2);
+INSERT INTO department (name,company) VALUES ("Marketing",2);
+INSERT INTO department (name,company) VALUES ("Sales",3);
+INSERT INTO department (name,company) VALUES ("Engineering",3);
+INSERT INTO department (name,company) VALUES ("Marketing",3);
 INSERT INTO company (name) VALUES ("Google");
 INSERT INTO company (name) VALUES ("Microsoft");
 INSERT INTO company (name) VALUES ("Windsor Circle");

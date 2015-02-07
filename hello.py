@@ -6,14 +6,17 @@ from models.personality_type import Personality_Type
 from models.letter import Letter
 from database import db_session, init_db
 import json
+import decorator
 init_db()
 app = Flask(__name__)
 
 @app.route('/')
+@crossdomain(origin='*')
 def hello():
     return 'Hello, World!'
 
 @app.route('/employees', methods=['GET'])
+@crossdomain(origin='*')
 def employees():
     employee_list = db_session.query(Employee).all()
     employee_dict = map(lambda y:y.to_dict(), employee_list)
@@ -21,11 +24,13 @@ def employees():
     return jsonify(employees=employee_dict)
 
 @app.route('/employees/<id>', methods=['GET'])
+@crossdomain(origin='*')
 def employees_by_id(id):
     x = db_session.query(Employee).filter(Employee.id==id).first()
     return jsonify(x.to_dict())    
 
 @app.route('/employees', methods=['POST'])
+@crossdomain(origin='*')
 def create_employee():
     employee = Employee()
     data = json.loads(request.data)
@@ -35,6 +40,7 @@ def create_employee():
     return jsonify(employee.to_dict())
 
 @app.route('/employees/<id>', methods=['PUT'])
+@crossdomain(origin='*')
 def update_employee(id):
     employee = db_session.query(Employee).filter(Employee.id==id).first()
     data = json.loads(request.data)
@@ -43,6 +49,7 @@ def update_employee(id):
     return jsonify(employee.to_dict()) 
 
 @app.route('/employees/<id>', methods=['DELETE'])
+@crossdomain(origin='*')
 def delete_employee(id):
     employee = db_session.query(Employee).filter(Employee.id==id).first()
     db_session.delete(employee)
@@ -50,6 +57,7 @@ def delete_employee(id):
     return True
 
 @app.route('/companies', methods=['GET'])
+@crossdomain(origin='*')
 def companies():
     company_list = db_session.query(Company).all()
     company_dict = map(lambda y:y.to_dict(), company_list)
@@ -57,11 +65,13 @@ def companies():
     return jsonify(companies=company_dict)
 
 @app.route('/companies/<id>', methods=['GET'])
+@crossdomain(origin='*')
 def companies_by_id(id):
     x = db_session.query(Company).filter(Company.id==id).first()
     return jsonify(x.to_dict()) 
 
 @app.route('/companies', methods=['POST'])
+@crossdomain(origin='*')
 def create_company():
     company = Company()
     company_data = json.loads(request.data)
@@ -71,6 +81,7 @@ def create_company():
     return jsonify(company.to_dict())
 
 @app.route('/companies/<id>', methods=['PUT'])
+@crossdomain(origin='*')
 def update_company(id):
     company = db_session.query(Company).filter(Company.id==id).first()
     company_data = json.loads(request.data)
@@ -79,6 +90,7 @@ def update_company(id):
     return jsonify(company.to_dict())
 
 @app.route('/companies/<id>', methods=['DELETE'])
+@crossdomain(origin='*')
 def delete_company(id):
     company = db_session.query(Company).filter(Company.id==id).first()
     db_session.delete(company)
@@ -86,6 +98,7 @@ def delete_company(id):
     return True
 
 @app.route('/departments', methods=['GET'])
+@crossdomain(origin='*')
 def departments():
     department_list = db_session.query(Department).all()
     department_dict = map(lambda y:y.to_dict(), department_list)
@@ -93,11 +106,13 @@ def departments():
     return jsonify(departments=department_dict)
 
 @app.route('/departments/<id>', methods=['GET'])
+@crossdomain(origin='*')
 def departments_by_id(id):
     retrieved_department = db_session.query(Department).filter(Department.id==id).first()
     return jsonify(retrieved_department.to_dict())
 
 @app.route('/departments', methods=['POST'])
+@crossdomain(origin='*')
 def create_department():
     department = Department()
     department_data = json.loads(request.data)
@@ -107,6 +122,7 @@ def create_department():
     return jsonify(department.to_dict())
 
 @app.route('/departments/<id>', methods=['PUT'])
+@crossdomain(origin='*')
 def update_department(id):
     department = db_session.query(Department).filter(Department.id==id).first()
     department_data = json.loads(request.data)
@@ -115,6 +131,7 @@ def update_department(id):
     return jsonify(department.to_dict())
 
 @app.route('/departments/<id>', methods=['DELETE'])
+@crossdomain(origin='*')
 def delete_department(id):
     department = db_session.query(Department).filter(Department.id==id).first()
     db_session.delete(department)
@@ -122,23 +139,27 @@ def delete_department(id):
     return True
 
 @app.route('/personality_types', methods=['GET'])
+@crossdomain(origin='*')
 def personality_types():
     personality_types_list = db_session.query(Personality_Type).all()
     personality_types_dict = map(lambda y:y.to_dict(), personality_types_list)
     return jsonify(personality_types=personality_types_dict)
 
 @app.route('/personality_types/<id>', methods=['GET'])
+@crossdomain(origin='*')
 def personality_types_by_id(id):
     retrieved_personality_type = db_session.query(Personality_Type).filter(Personality_Type.signature==id).first()
     return jsonify(retrieved_personality_type.to_dict())
 
 @app.route('/letters', methods=['GET'])
+@crossdomain(origin='*')
 def letters():
     letters_list = db_session.query(Letter).all()
     letters_dict = map(lambda y:y.to_dict(), letters_list)
     return jsonify(letters=letters_dict)
 
 @app.route('/letters/<id>', methods=['GET'])
+@crossdomain(origin='*')
 def letter_by_id(id):
     retrieved_letter = db_session.query(Letter).filter(Letter.letter==id).first()
     return jsonify(retrieved_letter.to_dict())
