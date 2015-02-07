@@ -6,7 +6,7 @@ from models.personality_type import Personality_Type
 from models.letter import Letter
 from database import db_session, init_db
 import json
-import decorator
+from decorator import crossdomain
 init_db()
 app = Flask(__name__)
 
