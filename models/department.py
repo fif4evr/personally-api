@@ -8,7 +8,9 @@ class Department(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String)
     company = Column(Integer, ForeignKey('company.id'))
-    company_relationship = relationship('Company')
+
+
+
 
 
     def to_dict(self):

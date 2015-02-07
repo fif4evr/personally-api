@@ -184,4 +184,4 @@ def update_employee_info(employee, employee_data):
     employee.department = employee_data['department']
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

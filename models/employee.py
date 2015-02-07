@@ -16,17 +16,20 @@ class Employee(Base):
     personality = relationship('Personality_Type')
     hire_date = Column(Date)
     gender = Column(String)
-    company = Column(Integer, ForeignKey('company.id'))
-    company_relationship = relationship('Company')
     department = Column(Integer, ForeignKey('department.id'))
     department_relationship = relationship('Department')
+    company_relationship = relationship('Company', secondary="department", uselist=False)
+    # company_relationship = relationship('Company', primaryjoin="Employee.department==Department.id", secondaryjoin="Department.company==Company.id")
+
 
     def __repr__(self):
         return "<Employee(name='%s', bio='%s', personality_type='%s')>" % (self.name, self.bio, self.personality_type)
 
     def to_dict(self):
-       return {
+        # import pdb; pdb.set_trace()
+        return {
            'id': self.id,
            'name': self.name,
-           'bio' : self.bio
+           'bio' : self.bio,
+           'company': self.company_relationship.name
        }
