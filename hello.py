@@ -70,6 +70,14 @@ def companies_by_id(id):
     x = db_session.query(Company).filter(Company.id==id).first()
     return jsonify(x.to_dict()) 
 
+@app.route('/companies/<id>/departments', methods=['GET'])
+@crossdomain(origin='*')
+def company_department_by_id(id):
+    company_by_id_dict = db_session.query(Company).filter(Company.id==id).first().to_dict()
+    company_departments = company_by_id_dict['departments']
+    company_departments_dict = {'departments': company_departments}
+    return jsonify(company_departments_dict)
+
 @app.route('/companies', methods=['POST'])
 @crossdomain(origin='*')
 def create_company():

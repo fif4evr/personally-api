@@ -19,4 +19,4 @@ class Company(Base):
         }
 
     def __repr__(self):
-        return "<Company(id='%d', name='%s')>" % (self.id, self.name)
+        return "<Company(id='%d', name='%s', departments='%s')>" % (self.id, self.name, self.departments)
