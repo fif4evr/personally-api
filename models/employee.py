@@ -18,9 +18,7 @@ class Employee(Base):
     gender = Column(String)
     department = Column(Integer, ForeignKey('department.id'))
     department_relationship = relationship('Department')
-    company_relationship = relationship('Company', secondary="department", uselist=False)
-    # company_relationship = relationship('Company', primaryjoin="Employee.department==Department.id", secondaryjoin="Department.company==Company.id")
-
+    company_relationship = relationship('Company', secondary="department", uselist=False, backref='employee')
 
     def __repr__(self):
         return "<Employee(name='%s', bio='%s', personality_type='%s')>" % (self.name, self.bio, self.personality_type)

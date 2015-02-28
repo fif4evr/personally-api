@@ -8,15 +8,13 @@ class Department(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String)
     company = Column(Integer, ForeignKey('company.id'))
-
-
-
-
-
+    
     def to_dict(self):
+        # import pdb; pdb.set_trace()
         return {
         'id': self.id,
-        'name': self.name
+        'name': self.name,
+        'company': self.company
         }
 
     def __repr__(self):
