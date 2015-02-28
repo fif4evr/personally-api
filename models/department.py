@@ -14,7 +14,8 @@ class Department(Base):
         return {
         'id': self.id,
         'name': self.name,
-        'company': self.company
+        'company': self.company,
+        'employees': map(lambda y:y.to_dict(), self.employee)
         }
 
     def __repr__(self):

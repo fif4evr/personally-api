@@ -87,7 +87,6 @@ def company_employees_by_id(id):
     # import pdb; pdb.set_trace()   
     return jsonify(company_employees_dict)
     
-
 @app.route('/companies', methods=['POST'])
 @crossdomain(origin='*')
 def create_company():
@@ -128,6 +127,13 @@ def departments():
 def departments_by_id(id):
     retrieved_department = db_session.query(Department).filter(Department.id==id).first()
     return jsonify(retrieved_department.to_dict())
+
+@app.route('/departments/<id>/employees', methods = ['GET'])
+@crossdomain(origin='*')
+def department_employees_by_id(id):
+    department_by_id_dict = db_session.query(Department).filter(Department.id==id).first().to_dict()
+    department_employees_dict = {'employees': department_by_id_dict['employees']}
+    return jsonify(department_employees_dict)
 
 @app.route('/departments', methods=['POST'])
 @crossdomain(origin='*')

@@ -17,7 +17,7 @@ class Employee(Base):
     hire_date = Column(Date)
     gender = Column(String)
     department = Column(Integer, ForeignKey('department.id'))
-    department_relationship = relationship('Department')
+    department_relationship = relationship('Department', backref='employee')
     company_relationship = relationship('Company', secondary="department", uselist=False, backref='employee')
 
     def __repr__(self):
