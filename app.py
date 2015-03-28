@@ -26,8 +26,8 @@ def employees():
 @app.route('/employees/<id>', methods=['GET'])
 @crossdomain(origin='*')
 def employees_by_id(id):
-    x = db_session.query(Employee).filter(Employee.id==id).first()
-    return jsonify(x.to_dict())    
+    employee_by_id = db_session.query(Employee).filter(Employee.id==id).first()
+    return jsonify(employee_by_id.to_dict())    
 
 @app.route('/employees', methods=['POST'])
 @crossdomain(origin='*')
@@ -67,8 +67,8 @@ def companies():
 @app.route('/companies/<id>', methods=['GET'])
 @crossdomain(origin='*')
 def companies_by_id(id):
-    x = db_session.query(Company).filter(Company.id==id).first()
-    return jsonify(x.to_dict()) 
+    company_by_id = db_session.query(Company).filter(Company.id==id).first()
+    return jsonify(company_by_id.to_dict()) 
 
 @app.route('/companies/<id>/departments', methods=['GET'])
 @crossdomain(origin='*')
@@ -83,8 +83,7 @@ def company_department_by_id(id):
 def company_employees_by_id(id):
     company_by_id_dict = db_session.query(Company).filter(Company.id==id).first().to_dict()
     company_employees = company_by_id_dict['employees']
-    company_employees_dict = {'employees': company_employees}
-    # import pdb; pdb.set_trace()   
+    company_employees_dict = {'employees': company_employees} 
     return jsonify(company_employees_dict)
     
 @app.route('/companies', methods=['POST'])
@@ -119,7 +118,6 @@ def delete_company(id):
 def departments():
     department_list = db_session.query(Department).all()
     department_dict = map(lambda y:y.to_dict(), department_list)
-
     return jsonify(departments=department_dict)
 
 @app.route('/departments/<id>', methods=['GET'])
