@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Blueprint
 from models.employee import Employee
 from models.company import Company
 from models.department import Department
@@ -7,158 +7,19 @@ from models.letter import Letter
 from database import db_session, init_db
 import json
 from decorator import crossdomain
+from subparts.employee_routes import employee_routes
+from subparts.company_routes import company_routes
+from subparts.department_routes import department_routes
 init_db()
 app = Flask(__name__)
+app.register_blueprint(employee_routes)
+app.register_blueprint(company_routes)
+app.register_blueprint(department_routes)
 
 @app.route('/')
 @crossdomain(origin='*')
 def hello():
-    return 'Hello, World!'
-
-@app.route('/employees', methods=['GET'])
-@crossdomain(origin='*')
-def employees():
-    employee_list = db_session.query(Employee).all()
-    employee_dict = map(lambda y:y.to_dict(), employee_list)
-
-    return jsonify(employees=employee_dict)
-
-@app.route('/employees/<id>', methods=['GET'])
-@crossdomain(origin='*')
-def employees_by_id(id):
-    employee_by_id = db_session.query(Employee).filter(Employee.id==id).first()
-    return jsonify(employee_by_id.to_dict())    
-
-@app.route('/employees', methods=['POST'])
-@crossdomain(origin='*')
-def create_employee():
-    employee = Employee()
-    data = json.loads(request.data)
-    update_employee_info(employee, data)
-    db_session.add(employee)
-    db_session.commit()
-    return jsonify(employee.to_dict())
-
-@app.route('/employees/<id>', methods=['PUT'])
-@crossdomain(origin='*')
-def update_employee(id):
-    employee = db_session.query(Employee).filter(Employee.id==id).first()
-    data = json.loads(request.data)
-    update_employee_info(employee, data)
-    db_session.commit()
-    return jsonify(employee.to_dict()) 
-
-@app.route('/employees/<id>', methods=['DELETE'])
-@crossdomain(origin='*')
-def delete_employee(id):
-    employee = db_session.query(Employee).filter(Employee.id==id).first()
-    db_session.delete(employee)
-    db_session.commit()
-    return True
-
-@app.route('/companies', methods=['GET'])
-@crossdomain(origin='*')
-def companies():
-    company_list = db_session.query(Company).all()
-    company_dict = map(lambda y:y.to_dict(), company_list)
-
-    return jsonify(companies=company_dict)
-
-@app.route('/companies/<id>', methods=['GET'])
-@crossdomain(origin='*')
-def companies_by_id(id):
-    company_by_id = db_session.query(Company).filter(Company.id==id).first()
-    return jsonify(company_by_id.to_dict()) 
-
-@app.route('/companies/<id>/departments', methods=['GET'])
-@crossdomain(origin='*')
-def company_department_by_id(id):
-    company_by_id_dict = db_session.query(Company).filter(Company.id==id).first().to_dict()
-    company_departments = company_by_id_dict['departments']
-    company_departments_dict = {'departments': company_departments}
-    return jsonify(company_departments_dict)
-
-@app.route('/companies/<id>/employees', methods=['GET'])
-@crossdomain(origin='*')
-def company_employees_by_id(id):
-    company_by_id_dict = db_session.query(Company).filter(Company.id==id).first().to_dict()
-    company_employees = company_by_id_dict['employees']
-    company_employees_dict = {'employees': company_employees} 
-    return jsonify(company_employees_dict)
-    
-@app.route('/companies', methods=['POST'])
-@crossdomain(origin='*')
-def create_company():
-    company = Company()
-    company_data = json.loads(request.data)
-    update_company_data(company, company_data)
-    db_session.add(company)
-    db_session.commit()
-    return jsonify(company.to_dict())
-
-@app.route('/companies/<id>', methods=['PUT'])
-@crossdomain(origin='*')
-def update_company(id):
-    company = db_session.query(Company).filter(Company.id==id).first()
-    company_data = json.loads(request.data)
-    update_company_data(company, company_data)
-    db_session.commit()
-    return jsonify(company.to_dict())
-
-@app.route('/companies/<id>', methods=['DELETE'])
-@crossdomain(origin='*')
-def delete_company(id):
-    company = db_session.query(Company).filter(Company.id==id).first()
-    db_session.delete(company)
-    db_session.commit()
-    return True
-
-@app.route('/departments', methods=['GET'])
-@crossdomain(origin='*')
-def departments():
-    department_list = db_session.query(Department).all()
-    department_dict = map(lambda y:y.to_dict(), department_list)
-    return jsonify(departments=department_dict)
-
-@app.route('/departments/<id>', methods=['GET'])
-@crossdomain(origin='*')
-def departments_by_id(id):
-    retrieved_department = db_session.query(Department).filter(Department.id==id).first()
-    return jsonify(retrieved_department.to_dict())
-
-@app.route('/departments/<id>/employees', methods = ['GET'])
-@crossdomain(origin='*')
-def department_employees_by_id(id):
-    department_by_id_dict = db_session.query(Department).filter(Department.id==id).first().to_dict()
-    department_employees_dict = {'employees': department_by_id_dict['employees']}
-    return jsonify(department_employees_dict)
-
-@app.route('/departments', methods=['POST'])
-@crossdomain(origin='*')
-def create_department():
-    department = Department()
-    department_data = json.loads(request.data)
-    update_department_data(department, department_data)
-    db_session.add(department)
-    db_session.commit()
-    return jsonify(department.to_dict())
-
-@app.route('/departments/<id>', methods=['PUT'])
-@crossdomain(origin='*')
-def update_department(id):
-    department = db_session.query(Department).filter(Department.id==id).first()
-    department_data = json.loads(request.data)
-    update_department_data(department, department_data)
-    db_session.commit()
-    return jsonify(department.to_dict())
-
-@app.route('/departments/<id>', methods=['DELETE'])
-@crossdomain(origin='*')
-def delete_department(id):
-    department = db_session.query(Department).filter(Department.id==id).first()
-    db_session.delete(department)
-    db_session.commit()
-    return True
+    return 'Welcome to the Personally API'
 
 @app.route('/personality_types', methods=['GET'])
 @crossdomain(origin='*')
