@@ -29,5 +29,6 @@ class Employee(Base):
            'id': self.id,
            'name': self.name,
            'bio' : self.bio,
-           'company': self.company_relationship.name
+           'company': self.company_relationship.name,
+           'personality_type': self.personality_type
        }

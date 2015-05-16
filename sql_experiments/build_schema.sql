@@ -56,8 +56,8 @@ CREATE TABLE letter(
 );
 
 INSERT INTO company (name) VALUES ("Google");
-INSERT INTO company (name) VALUES ("Microsoft");
 INSERT INTO company (name) VALUES ("Windsor Circle");
+INSERT INTO company (name) VALUES ("Microsoft");
 INSERT INTO department (name,company) VALUES ("Sales",1);
 INSERT INTO department (name,company) VALUES ("Engineering",1);
 INSERT INTO department (name,company) VALUES ("Marketing",1);
