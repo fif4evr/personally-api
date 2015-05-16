@@ -58,6 +58,7 @@ def delete_employee(id):
 @crossdomain(origin='*')
 def get_similar_employee(id):
     num_matches = int(request.args['num_matches'])
+    import pdb; pdb.set_trace()
     employee_by_id = db_session.query(Employee).filter(Employee.id==id).first()
     employee_personality_type = employee_by_id.personality_type
     employee_company_relationship = employee_by_id.company_relationship
@@ -69,6 +70,8 @@ def get_similar_employee(id):
         if similar_employee.id != employee_by_id.id:
             ranked_employees.append((similar_employee, get_similarity_score(employee_by_id, similar_employee)))
     ranked_employees = sorted(ranked_employees, key=lambda employee: employee[1])
+    if len(ranked_employees) > num_matches:
+        ranked_employees = ranked_employees[0:num_matches]
     # TODO find a way to return it
     return json.dumps(ranked_employees_dict)
 
